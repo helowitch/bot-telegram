@@ -12,7 +12,9 @@ async def start(update: Update, context: CallbackContext) -> None:
 async def respond_to_where(update: Update, context: CallbackContext) -> None:
     if update.message and update.message.text:  # Vérifie que le message existe et est du texte
         message_text = update.message.text.lower()  # On met tout en minuscule pour éviter la casse
-        if message_text.endswith("où") or message_text == "c'est où":
+        
+        # Rechercher "où" suivi de 0 à 3 mots
+        if re.search(r'\boù\b(\s+\S+){0,3}$', message_text):
             await update.message.reply_text("À Montélimar")
 
 def main() -> None:
